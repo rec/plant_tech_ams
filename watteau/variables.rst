@@ -53,7 +53,8 @@ At each loop point we collect:
 
   * A 10-bit analog A value between 0 and 1023
 
-  * Packing 10-bit values will be a bit challenging
+  * Packing 10-bit values will be a bit challenging so we'll use
+    16 bit values for now
 
 * For each digital channel (DC)
 
@@ -71,7 +72,7 @@ At each loop point we collect:
 Since we have limited space, all of these need to be packed carefully, and use
 a circular buffer.  The size of each buffer is set in Configuration.
 
-Each analog sample is 10 bits.
+Each analog sample is 10 bits - 16 bits, for now.
 
 Each digital sample is 1 bit.
 

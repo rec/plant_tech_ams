@@ -45,10 +45,7 @@ struct AnalogBuffer : Buffer<Analog> {
 
 struct PumpBuffer : Buffer<Index> {
     void set(Index index, bool isRunning) {
-        static const Index topBit = 0x80000000;
-        static const Index bottomBits = topBit - 1;
-
-        top() = isRunning ? (index | topBit) : (index & bottomBits);
+        top() = isRunning ? (index | Bits::sign) : (index & Bits::body);
         increment();
     }
 };
