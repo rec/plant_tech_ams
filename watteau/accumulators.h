@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <watteau/types.h>
+#include "types.h"
 
 namespace watteau {
 
@@ -20,10 +20,11 @@ struct Accumulators {
 
     void accumulate(Milliseconds delay, const PumpState& pumpState) {
         all.accumulate(delay);
+
         for (auto& pump : pumps) {
-            auto i = &pump - &pumps[0]
+            auto i = &pump - &pumps[0];
             if (pumpState[i])
-                pump.accumulate(delay)
+                pump.accumulate(delay);
         }
     }
 };

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <watteau/types.h>
+#include "types.h"
 
 namespace watteau {
 
@@ -15,7 +15,7 @@ struct Buffer : std::vector<Value> {
     }
 
     void increment() {
-        if (++index >= size()) {
+        if (++index >= this->size()) {
             index = 0;
             loops += 1;
         }
@@ -23,7 +23,7 @@ struct Buffer : std::vector<Value> {
 };
 
 struct BitBuffer : Buffer<Byte> {
-    UByte bit = 0x80;
+    Byte bit = 0x80;
 
     void set(bool isSet) {
         if (isSet)

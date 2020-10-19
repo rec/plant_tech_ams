@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <watteau/types.h>
+#include "types.h"
 
 namespace watteau {
 
@@ -10,7 +10,7 @@ struct Channel {
 
     void setPinMode(int mode) {
         auto p = pins;
-        for (auto i = 0; p and i < 32; ++i) {
+        for (auto i = 0; p && i < 32; ++i) {
             if (p & 1)
                 pinMode(i, mode);
         }

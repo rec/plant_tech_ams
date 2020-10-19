@@ -14,11 +14,12 @@ using Milliseconds = int32;
 using GPIOSet = int32;
 using Analog = int16;
 using Byte = uint8;
+
 using PumpState = std::vector<bool>;
 
 struct Bits {
     static const auto sign = 0x80000000;
-    static const auto body = top - 1;
+    static const auto body = sign - 1;
 };
 
 }  // watteau
