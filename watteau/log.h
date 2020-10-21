@@ -14,51 +14,39 @@ inline Level& level() {
     return level;
 }
 
-class Log : public Print {
-  public:
-    static Log error(Level::error);
-    static Log info(Level::info);
-    static Log debug(Level::debug);
+template <typename T>
+void print(T t) {
+    Serial.print(t);
+}
 
-    virtual size_t write(uint8_t ch) {
-        if (level_ <= level())
-            Serial.write(ch);
+template <typename T, typename... Args>
+void print(T t, Args... args) {
+    print(t);
+    print(' ');
+    print(args...);
+}
+
+template <typename... Args>
+void printIf(Level lev, Args... args) {
+    if (level() <= lev) {
+        print(args...);
+        Serial.println();
     }
-
-  private:
-    Log(Level level) : level_(level) {}
-
-    Level level_;
-};
+}
 
 template <typename... Args>
 void error(Args&&... args) {
-    Log::error.print(std::forward<Args>(args)...);
+    printIf(Level::error, args...);
 }
 
 template <typename... Args>
 void info(Args&&... args) {
-    Log::info.print(std::forward<Args>(args)...);
+    printIf(Level::info, args...);
 }
 
 template <typename... Args>
 void debug(Args&&... args) {
-    Log::debug.print(std::forward<Args>(args)...);
-}
-
-template <typename... Args>
-void errorln(Args&&... args) {
-    Log::error.print(std::forward<Args>(args)...);
-}
-
-template <typename... Args>
-void infoln(Args&&... args) {
-    Log::info.print(std::forward<Args>(args)...);
-}
-
-template <typename... Args>
-void debugln(Args&&... args) {
-    Log::debug.print(std::forward<Args>(args)...);
+    printIf(Level::debug, args...);
 }
 
 }  // log
