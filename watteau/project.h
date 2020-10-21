@@ -12,6 +12,7 @@ class Project {
     explicit Project(const Config& config) : config_(config) {}
 
     void setup() {
+        log::info("-> Setting up.")
         config.setPinMode();
     }
 

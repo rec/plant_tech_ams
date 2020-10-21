@@ -9,11 +9,16 @@ struct Channel {
     Index sampleCount;
     GPIOSet pins;
 
-    void setPinMode(int mode) {
+    PinCount setPinMode(int mode) {
+        PinCount count = 0;
         auto p = pins;
         for (auto i = 0; p && i < 32; ++i) {
-            if (p & 1)
+            if (p & 1) {
+                info("Setting pin", i, "to", mode);
                 pinMode(i, mode);
+                count += 1;
+            }
+            return count;
         }
     }
 };
@@ -26,9 +31,9 @@ struct Config {
     Channel pump;
 
     void setPinMode() {
-        analog.setPinMode(INPUT);
-        digital.setPinMode(INPUT);
-        pump.setPinMode(OUTPUT);
+        info("analog pin count:", analog.setPinMode(INPUT));
+        info("digital pin count:", digital.setPinMode(INPUT));
+        info("pump pin count:", digital.setPinMode(OUTPUT));
     }
 };
 

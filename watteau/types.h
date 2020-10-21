@@ -15,7 +15,7 @@ using Milliseconds = int32;
 using GPIOSet = int32;
 using Analog = int16;
 using Byte = uint8;
-using PinMode = uint16;
+using PinCount = uint8;
 
 using PumpState = std::vector<bool>;
 
