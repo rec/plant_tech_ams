@@ -49,6 +49,8 @@ Observed variables
 
 At each loop point we collect:
 
+* The millis() time
+
 * For each analog channel (AC)
 
   * A 10-bit analog A value between 0 and 1023
@@ -90,16 +92,7 @@ Accumulators
 An accumulator is a value that is updated at each loop.  The accumulators are
 fixed size.
 
-* The loop count
 
-  How many times have we gone around the loop.
-
-  The loop count is our base time clock, starting at zero
-  when we turn the whole thing on.
-
-  You can convert the loop count into a pretty good "wall clock" time
-  if you know the delay time and can guess at how long the code
-  takes to run.
 
 * Total number of millseconds spent waiting in ``delay()``
 
@@ -110,3 +103,15 @@ fixed size.
   * Total number of compute cycles with the pump on
 
   * These last two give you a measure of how much water you have used
+
+
+* The loop count - DEPRECATED   Now we use millis()
+
+  How many times have we gone around the loop.
+
+  The loop count is our base time clock, starting at zero
+  when we turn the whole thing on.
+
+  You can convert the loop count into a pretty good "wall clock" time
+  if you know the delay time and can guess at how long the code
+  takes to run.
