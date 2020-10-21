@@ -1,5 +1,6 @@
 #pragma once
 
+#include <utility>
 #include <vector>
 #include "types.h"
 
@@ -13,76 +14,51 @@ inline Level& level() {
     return level;
 }
 
-template <typename S>
-void error(S s) {
-    if (level() >= Level::error)
-        Serial.print(s);
+class Log : public Print {
+  public:
+    static Log error(Level::error);
+    static Log info(Level::info);
+    static Log debug(Level::debug);
+
+    virtual size_t write(uint8_t ch) {
+        if (level_ <= level())
+            Serial.write(ch);
+    }
+
+  private:
+    Log(Level level) : level_(level) {}
+
+    Level level_;
+};
+
+template <typename... Args>
+void error(Args&&... args) {
+    Log::error.print(std::forward<Args>(args)...);
 }
 
-template <typename T, typename s>
-void error(S s, T t) {
-    if (level() >= Level::error)
-        Serial.print(s, t);
+template <typename... Args>
+void info(Args&&... args) {
+    Log::info.print(std::forward<Args>(args)...);
 }
 
-template <typename S>
-void errorln(S s) {
-    if (level() >= Level::error)
-        Serial.println(s);
+template <typename... Args>
+void debug(Args&&... args) {
+    Log::debug.print(std::forward<Args>(args)...);
 }
 
-template <typename T, typename s>
-void errorln(S s, T t) {
-    if (level() >= Level::error)
-        Serial.println(s, t);
+template <typename... Args>
+void errorln(Args&&... args) {
+    Log::error.print(std::forward<Args>(args)...);
 }
 
-template <typename S>
-void info(S s) {
-    if (level() >= Level::info)
-        Serial.print(s);
+template <typename... Args>
+void infoln(Args&&... args) {
+    Log::info.print(std::forward<Args>(args)...);
 }
 
-template <typename T, typename s>
-void info(S s, T t) {
-    if (level() >= Level::info)
-        Serial.print(s, t);
-}
-
-template <typename S>
-void infoln(S s) {
-    if (level() >= Level::info)
-        Serial.println(s);
-}
-
-template <typename T, typename s>
-void infoln(S s, T t) {
-    if (level() >= Level::info)
-        Serial.println(s, t);
-}
-
-template <typename S>
-void debug(S s) {
-    if (level() >= Level::debug)
-        Serial.print(s);
-}
-
-template <typename T, typename s>
-void debug(S s, T t) {
-    if (level() >= Level::debug)
-        Serial.print(s, t);
-}
-
-template <typename S>
-void debugln(S s) {
-    if (level() >= Level::debug)
-        Serial.println(s);
-}
-
-template <typename T, typename s>
-void debugln(S s, T t) {
-    if (level() >= Level::debug)
-        Serial.println(s, t);
+template <typename... Args>
+void debugln(Args&&... args) {
+    Log::debug.print(std::forward<Args>(args)...);
 }
 
 }  // log
