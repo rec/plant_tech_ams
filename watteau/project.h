@@ -9,7 +9,10 @@ namespace watteau {
 
 class Project {
   public:
-    Project(const Config& config) {
+    explicit Project(const Config& config) : config_(config) {}
+
+    void setup() {
+        config.setPinMode();
     }
 
     void run() {
@@ -18,6 +21,7 @@ class Project {
   private:
     Config config_;
     Accumulators accumulators_;
+    PumpState pumpState_;
 };
 
 }  // watteau

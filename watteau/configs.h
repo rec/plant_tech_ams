@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "types.h"
+#include "log.h"
 
 namespace watteau {
 

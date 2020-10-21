@@ -5,6 +5,7 @@ double analogValue = 0.0;
 int digitalValue = 0;
 double analogVolts = 0.0;
 unsigned long timeHolder = 0;
+
 void setup() {
   // put your setup code here, to run once:
   pinMode(ANA, INPUT);
@@ -13,6 +14,7 @@ void setup() {
   Serial.begin(115200);
   Serial.println("Paolo Test");
 }
+
 void loop() {
   analogValue = analogRead(ANA);
   digitalValue = digitalRead(DIGI);

@@ -6,6 +6,7 @@
 namespace watteau {
 
 using int32 = int_fast32_t;
+using uint16 = uint_fast16_t;
 using int16 = int_fast16_t;
 using uint8 = uint_fast8_t;
 
@@ -14,6 +15,7 @@ using Milliseconds = int32;
 using GPIOSet = int32;
 using Analog = int16;
 using Byte = uint8;
+using PinMode = uint16;
 
 using PumpState = std::vector<bool>;
 
